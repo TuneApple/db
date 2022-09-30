@@ -1,0 +1,26 @@
+import uvicorn
+import env_file
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from src.api import (
+    user
+)
+
+app = FastAPI()
+
+origins = env_file.origins
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(router=user.router, prefix='/auth')
+
+if __name__ == '__main__':
+    uvicorn.run(app, host=env_file.host, port=env_file.port, debug=True)

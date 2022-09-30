@@ -1,13 +1,11 @@
-from init import Base, engine
+from start.init import Base, engine
 
 
 def create_tables():
-    from tables import products, category, series, user, rule
     Base.metadata.create_all(bind=engine)
 
 
 def drop_tables():
-    from tables import products, category, series, user, rule
     Base.metadata.drop_all(bind=engine)
 
 
